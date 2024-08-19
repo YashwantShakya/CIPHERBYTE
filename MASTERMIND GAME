@@ -1,0 +1,44 @@
+import random
+
+def mastermind():
+    # Player 1 sets the number
+    number_to_guess = input("Player 1, please enter a 4-digit number: ")
+    
+    # Player 2 tries to guess
+    attempts = 0
+    while True:
+        guess = input("Player 2, guess the number: ")
+        attempts += 1
+        if guess == number_to_guess:
+            print("Player 2 wins!")
+            break
+        else:
+            # Provide hints
+            correct_digits = sum(1 for i in range(4) if guess[i] == number_to_guess[i])
+            correct_positions = sum(1 for i in range(4) if guess[i] == number_to_guess[i] and i == guess.index(guess[i]))
+            print(f"{correct_digits} correct digits, {correct_positions} correct positions")
+    
+    # Player 2 sets the number
+    number_to_guess = str(random.randint(1000, 9999))
+    
+    # Player 1 tries to guess
+    attempts_player1 = 0
+    while True:
+        guess = input("Player 1, guess the number: ")
+        attempts_player1 += 1
+        if guess == number_to_guess:
+            print("Player 1 wins!")
+            break
+        else:
+            # Provide hints
+            correct_digits = sum(1 for i in range(4) if guess[i] == number_to_guess[i])
+            correct_positions = sum(1 for i in range(4) if guess[i] == number_to_guess[i] and i == guess.index(guess[i]))
+            print(f"{correct_digits} correct digits, {correct_positions} correct positions")
+    
+    # Determine the overall winner
+    if attempts_player1 < attempts:
+        print("Player 1 is the Mastermind!")
+    else:
+        print("Player 2 is the Mastermind!")
+
+mastermind()
