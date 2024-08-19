@@ -1,0 +1,28 @@
+import sounddevice as sd
+from scipy.io.wavfile import write
+import wavio
+
+def record_voice(duration, filename):
+    # Record audio
+    print("Recording...")
+    audio = sd.rec(int(duration * 44100), samplerate=44100, channels=2)
+    sd.wait()
+    print("Recording finished.")
+
+    # Save audio to file
+    write(filename, 44100, audio)
+
+def play_voice(filename):
+    # Play audio
+    print("Playing...")
+    wavio.wav_to_wave(filename)
+    sd.play(wavio.wav_to_wave(filename), 44100)
+    sd.wait()
+    print("Playback finished.")
+
+# Record voice for 10 seconds and save to file
+record_voice(10, "recorded_voice.wav")
+
+# Play recorded voice
+play_voice("recorded_voice.wav")
+
